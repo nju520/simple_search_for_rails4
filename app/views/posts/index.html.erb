@@ -1,0 +1,61 @@
+<h1>Listing posts</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= post.title %></td>
+    <td><%= post.body %></td>
+    <td><%= post.user_id %></td>
+    <td><%= link_to 'Show', post %></td>
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Post', new_post_path %>
+
+
+<hr/>
+<h2>rails-simple-search</h2>
+<%= form_for @search, :url => "/posts/index" do |f| %>
+  <%= f.label "Post title" %>
+  <%= f.text_field 'title' %>
+  <br/>
+  <%= f.label "Post body" %>
+  <%= f.text_field 'body' %>
+  <br/>
+
+  <%= f.label "User First Name" %>
+  <%= f.text_field 'user.first_name' %>
+  <br/>
+  <%= f.label "User Last Name" %>
+  <%= f.text_field 'user.last_name' %>
+  <br/>
+  <%= f.label "User email" %>
+  <%= f.text_field 'user.email' %>
+  <br/>
+
+  <%= f.label "Comment title" %>
+  <%= f.text_field 'comments.title' %>
+  <br/>
+
+  <%= f.label "Comment" %>
+  <%= f.text_field 'comments.body' %>
+  <br/>
+  <%= f.label "Page" %>
+  <%= f.select 'page', @search.pages_for_select  %>
+  <br/>
+  <%= f.submit "search" %>
+<% end %>
